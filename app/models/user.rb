@@ -10,9 +10,6 @@ class User < ApplicationRecord
       user.uid = auth.uid
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
-      puts "here we are"
-      puts auth.credentials.token + " " + auth.credentials.secret
-      puts "end we are"
       user.token = auth.credentials.token
       user.secret = auth.credentials.secret
     end
