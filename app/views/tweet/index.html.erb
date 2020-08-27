@@ -1,6 +1,11 @@
 <h1>Your Potential Jobs</h1>
-<p>Here are tweets that are beneficial for you</p>
+
+<% @jobs.each do |job| %>
+    <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
+<% end %>
 
 <%= link_to "Edit your account", edit_user_registration_path %>
 <br>
 <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
