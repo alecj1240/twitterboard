@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_25_235512) do
+ActiveRecord::Schema.define(version: 2020_08_26_191824) do
+
+  create_table "tweets", force: :cascade do |t|
+    t.text "text"
+    t.integer "favorite_count"
+    t.integer "reply_count"
+    t.integer "retweet_count"
+    t.string "tweet_id"
+    t.string "author_id"
+    t.boolean "approved"
+    t.string "link"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
