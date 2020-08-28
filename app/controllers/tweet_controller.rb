@@ -1,6 +1,6 @@
 
 class TweetController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
   before_action :authorize_admin, only: :approve
   require 'twitter'
 
@@ -13,7 +13,7 @@ class TweetController < ApplicationController
     @mentions = client.mentions_timeline
     @jobs = []
     @mentions.each do |job|
-      if !Tweet.find_by(tweet_id: job.id)
+      if !Tweet.find_by(tweet_id: job.id) && !Tweet.find_by(tweet_id: job.in_reply_to_status_id)
         @jobs.push(job)
       end
     end
@@ -35,6 +35,25 @@ class TweetController < ApplicationController
     )
     @newTweet.save!
   end 
+
+  def thread_approved
+    @tweetId = params[:tweetId]
+    client = User.twitter_client(current_user)
+    tweetInfo = client.status(@tweetId)
+    @threadId = tweetInfo.in_reply_to_status_id
+    threadInfo = client.status(@threadId)
+    @newTweet = Tweet.new(
+      approved: true,
+      text: threadInfo.text,
+      tweet_id: @threadId,
+      author_id: client.user(threadInfo.uri.to_s.split('/')[3]).id,
+      link: threadInfo.uri,
+      favorite_count: threadInfo.favorite_count,
+      reply_count: threadInfo.reply_count,
+      retweet_count: threadInfo.retweet_count
+    )
+    @newTweet.save!
+  end
 
   def denied
     @tweetId = params[:tweetId]
