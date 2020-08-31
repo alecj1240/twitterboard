@@ -1,0 +1,10 @@
+<h1>Approve/Disapprove Tweets</h1>
+
+<% @jobs.each do |job| %>
+    <blockquote class="twitter-tweet"><a href=<%= job.uri %>></a></blockquote> 
+    <%= link_to "Approve Job", approval_approved_path(tweetId: job.id), method: :post %>
+    <%= link_to "Deny Job", approval_denied_path(tweetId: job.id), method: :post %>
+    <%= link_to "Approve Thread Job", approval_thread_approved_path(tweetId: job.id), method: :post %>
+<% end %>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
