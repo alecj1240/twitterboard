@@ -1,5 +1,11 @@
 <h1>Your Potential Jobs</h1>
 
+<%= link_to "Filter by Followers", url_for(:filter => 'followers') %>
+<%= link_to "Filter by Following", url_for(:filter => 'following') %>
+<% if !@filter.nil? %>
+    <%= link_to "Remove Filters", url_for() %>
+<% end %>
+
 <% @jobs.each do |job| %>
     <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
 <% end %>
