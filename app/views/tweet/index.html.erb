@@ -1,17 +1,19 @@
-<h1>Your Potential Jobs</h1>
+<div class="container-center">
+    <h1 class="text-center">Your Potential Jobs</h1>
 
-<%= link_to "Filter by Followers", url_for(:filter => 'followers') %>
-<%= link_to "Filter by Following", url_for(:filter => 'following') %>
-<% if !@filter.nil? %>
-    <%= link_to "Remove Filters", url_for() %>
-<% end %>
+    <%= link_to "Filter by Followers", url_for(:filter => 'followers'), class: "btn btn-primary" %>
+    <%= link_to "Filter by Following", url_for(:filter => 'following'), class: "btn btn-primary" %>
+    <% if !@filter.nil? %>
+        <%= link_to "Remove Filters", url_for(), class: "btn btn-danger" %>
+    <% end %>
 
-<% @jobs.each do |job| %>
-    <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
-<% end %>
+    <% @jobs.each do |job| %>
+        <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
+    <% end %>
 
-<%= link_to "Edit your account", edit_user_registration_path %>
-<br>
-<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+    <%= link_to "Edit your account", edit_user_registration_path %>
+    <br>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+</div>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
