@@ -17,7 +17,21 @@ class ApprovalController < ApplicationController
     end
   end
 
-  def approved
+  def handle
+    if params[:commit] == "Approve Job"
+      approved(params[:tweetId], params[:category])
+    end
+
+    if params[:commit] == "Deny Job"
+      denied(params[:tweetId], params[:category])
+    end
+
+    if params[:commit] == "Approve Thread Job"
+      thread_approved(params[:tweetId], params[:category])
+    end
+  end
+
+  def approved(tweetId, category)
     @tweetId = params[:tweetId]
     client = User.twitter_client(current_user)
     tweetInfo = client.status(@tweetId)
@@ -29,13 +43,14 @@ class ApprovalController < ApplicationController
       link: tweetInfo.uri,
       favorite_count: tweetInfo.favorite_count,
       reply_count: tweetInfo.reply_count,
-      retweet_count: tweetInfo.retweet_count
+      retweet_count: tweetInfo.retweet_count,
+      category: category
     )
     @newTweet.save!
   end 
 
-  def thread_approved
-    @tweetId = params[:tweetId]
+  def thread_approved(tweetId, category)
+    @tweetId = tweetId
     client = User.twitter_client(current_user)
     tweetInfo = client.status(@tweetId)
     @threadId = tweetInfo.in_reply_to_status_id
@@ -48,13 +63,14 @@ class ApprovalController < ApplicationController
       link: threadInfo.uri,
       favorite_count: threadInfo.favorite_count,
       reply_count: threadInfo.reply_count,
-      retweet_count: threadInfo.retweet_count
+      retweet_count: threadInfo.retweet_count,
+      category: category
     )
     @newTweet.save!
   end
 
-  def denied
-    @tweetId = params[:tweetId]
+  def denied(tweetId, category)
+    @tweetId = tweetId
     client = User.twitter_client(current_user)
     tweetInfo = client.status(@tweetId)
     @newTweet = Tweet.new(
@@ -65,7 +81,8 @@ class ApprovalController < ApplicationController
       link: tweetInfo.uri,
       favorite_count: tweetInfo.favorite_count,
       reply_count: tweetInfo.reply_count,
-      retweet_count: tweetInfo.retweet_count
+      retweet_count: tweetInfo.retweet_count,
+      category: category
     )
     @newTweet.save!
   end

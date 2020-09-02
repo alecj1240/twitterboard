@@ -3,6 +3,7 @@ class TweetController < ApplicationController
 
   def index
     @filter = params[:filter]
+    @category = params[:category]
     @jobs = Tweet.where(:approved => true).order('created_at DESC')
     if user_signed_in? && @filter == "followers"
       client = User.twitter_client(current_user)
@@ -21,6 +22,12 @@ class TweetController < ApplicationController
       end
       puts @followingIds
       @jobs = Tweet.where(:approved => true).where("author_id IN (?)", @followingIds).order('created_at DESC')
+    end
+    if user_signed_in? && !@category.nil?
+      @jobs = Tweet.where(:approved => true).where(:category => @category).order('created_at DESC')
+      if @jobs.count == 0
+        @jobs = Tweet.where(:approved => true).order('created_at DESC')
+      end 
     end
   end
   

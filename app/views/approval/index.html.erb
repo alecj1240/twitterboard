@@ -3,9 +3,15 @@
 
     <% @jobs.each do |job| %>
         <blockquote class="twitter-tweet"><a href=<%= job.uri %>></a></blockquote> 
-        <%= link_to "Approve Job", approval_approved_path(tweetId: job.id), method: :post, class: "btn btn-primary" %>
-        <%= link_to "Deny Job", approval_denied_path(tweetId: job.id), method: :post, class: "btn btn-danger" %>
-        <%= link_to "Approve Thread Job", approval_thread_approved_path(tweetId: job.id), method: :post, class: "btn btn-primary" %>
+            <%= form_with(url: approval_handle_path, method: "post") do %>
+
+            <%= hidden_field_tag :tweetId, job.id %>
+            <%= select_tag "category", options_for_select([ "Programming", "Design", "Copywriting", "DevOps & SysAdmin", "Business, Management, Finance", "Product", "Customer Support", "Sales & Marketing"], "Programming") %>
+            <%= submit_tag("Approve Job", class: "btn btn-primary") %>
+            <%= submit_tag("Deny Job", class: "btn btn-danger") %>
+            <%= submit_tag("Approve Thread Job", class: "btn btn-primary") %>
+
+        <% end %>
     <% end %>
 </div>
 
