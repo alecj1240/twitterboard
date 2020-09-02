@@ -1,0 +1,15 @@
+<div class="container-center">
+    <h1 class="text-center">Jobs You've Tweeted</h1>
+
+    <% @jobs.in_groups_of(4, false).each do |group| %>
+        <div class='row'>
+            <% group.each do |job| %>
+                <div class='col-md-3'>
+                    <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
+                </div>
+            <% end %>
+        </div>
+    <% end %>
+</div>
+
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

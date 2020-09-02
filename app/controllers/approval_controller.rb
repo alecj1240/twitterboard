@@ -1,6 +1,6 @@
 class ApprovalController < ApplicationController
-  before_action :authenticate_user!, except: :index
-  before_action :authorize_admin, only: :approve
+  before_action :authenticate_user!
+  before_action :authorize_admin
 
   def index
     client = User.twitter_client(current_user)
@@ -93,6 +93,6 @@ class ApprovalController < ApplicationController
     if current_user.email === "alec@christopherbot.co"
       return
     end
-    redirect_to root_path, alert: "Naughty naughty! You can't go in there!"
+    redirect_to jobs_path, alert: "How did you know that was there? You can't go in there!"
   end
 end

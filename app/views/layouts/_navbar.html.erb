@@ -9,20 +9,24 @@
       <li class="nav-item active">
        <%= link_to "Job Board", jobs_path, class: "nav-link"%>
       </li>
-      <% if current_user.email === "alec@christopherbot.co" %>
-        <li class="nav-item active">
-        <%= link_to "Approval", approval_path, class: "nav-link"%>
+      <% if user_signed_in? %>
+        <% if current_user.email === "alec@christopherbot.co" %>
+          <li class="nav-item active">
+          <%= link_to "Approval", approval_path, class: "nav-link"%>
+          </li>
+        <% end %>
+     
+        <li class="nav-item dropdown my-2 my-lg-0">
+          <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Your Tweets", my_jobs_path, class: "dropdown-item" %>
+            <%= link_to "Edit My Account", edit_user_registration_path, class: "dropdown-item" %>
+            <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+          </div>
         </li>
       <% end %>
-      <li class="nav-item dropdown my-2 my-lg-0">
-        <a class="nav-link dropdown-toggle mr-sm-2" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Settings
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <%= link_to "Edit My Account", edit_user_registration_path, class: "dropdown-item" %>
-          <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
-        </div>
-      </li>
     </ul>
   </div>
 </nav>

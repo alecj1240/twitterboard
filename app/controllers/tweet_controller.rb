@@ -1,6 +1,7 @@
 class TweetController < ApplicationController
   require 'twitter'
 
+  # collection of all the tweets available with filters
   def index
     @filter = params[:filter]
     @category = params[:category]
@@ -29,6 +30,11 @@ class TweetController < ApplicationController
         @jobs = Tweet.where(:approved => true).order('created_at DESC')
       end 
     end
+  end
+
+  # collection of your tweets
+  def personal
+    @jobs = Tweet.where(:approved => true).where(:author_id => current_user.uid).order('created_at DESC')
   end
   
 end
