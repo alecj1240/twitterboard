@@ -7,13 +7,15 @@
         <%= link_to "Remove Filters", url_for(), class: "btn btn-danger" %>
     <% end %>
 
-    <% @jobs.each do |job| %>
-        <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
+    <% @jobs.in_groups_of(4, false).each do |group| %>
+        <div class='row'>
+            <% group.each do |job| %>
+                <div class='col-md-3'>
+                    <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
+                </div>
+            <% end %>
+        </div>
     <% end %>
-
-    <%= link_to "Edit your account", edit_user_registration_path %>
-    <br>
-    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
 </div>
 
 <script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

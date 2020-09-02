@@ -7,6 +7,10 @@ class ApprovalController < ApplicationController
     @mentions = client.mentions_timeline
     @jobs = []
     @mentions.each do |job|
+      if job.in_reply_to_status_id.nil? && !Tweet.find_by(tweet_id: job.id)
+        @jobs.push(job)
+        next
+      end
       if !Tweet.find_by(tweet_id: job.id) && !Tweet.find_by(tweet_id: job.in_reply_to_status_id)
         @jobs.push(job)
       end
