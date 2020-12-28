@@ -1,4 +1,6 @@
 class ApprovalController < ApplicationController
+  include ApprovalHelper
+
   before_action :authenticate_user!
   before_action :authorize_admin
 
@@ -18,73 +20,20 @@ class ApprovalController < ApplicationController
   end
 
   def handle
-    if params[:commit] == "Approve Job"
-      approved(params[:tweetId], params[:category])
-    end
-
-    if params[:commit] == "Deny Job"
-      denied(params[:tweetId], params[:category])
-    end
-
-    if params[:commit] == "Approve Thread Job"
-      thread_approved(params[:tweetId], params[:category])
-    end
-  end
-
-  def approved(tweetId, category)
-    @tweetId = params[:tweetId]
     client = User.twitter_client(current_user)
-    tweetInfo = client.status(@tweetId)
-    @newTweet = Tweet.new(
-      approved: true,
-      text: tweetInfo.text,
-      tweet_id: @tweetId,
-      author_id: client.user(tweetInfo.uri.to_s.split('/')[3]).id,
-      link: tweetInfo.uri,
-      favorite_count: tweetInfo.favorite_count,
-      reply_count: tweetInfo.reply_count,
-      retweet_count: tweetInfo.retweet_count,
-      category: category
-    )
-    @newTweet.save!
-  end 
+    tweetInfo = client.status(params[:tweetId])
+    author = client.user(tweetInfo.uri.to_s.split('/')[3])
 
-  def thread_approved(tweetId, category)
-    @tweetId = tweetId
-    client = User.twitter_client(current_user)
-    tweetInfo = client.status(@tweetId)
-    @threadId = tweetInfo.in_reply_to_status_id
-    threadInfo = client.status(@threadId)
-    @newTweet = Tweet.new(
-      approved: true,
-      text: threadInfo.text,
-      tweet_id: @threadId,
-      author_id: client.user(threadInfo.uri.to_s.split('/')[3]).id,
-      link: threadInfo.uri,
-      favorite_count: threadInfo.favorite_count,
-      reply_count: threadInfo.reply_count,
-      retweet_count: threadInfo.retweet_count,
-      category: category
-    )
-    @newTweet.save!
-  end
-
-  def denied(tweetId, category)
-    @tweetId = tweetId
-    client = User.twitter_client(current_user)
-    tweetInfo = client.status(@tweetId)
-    @newTweet = Tweet.new(
-      approved: false,
-      text: tweetInfo.text,
-      tweet_id: @tweetId,
-      author_id: client.user(tweetInfo.uri.to_s.split('/')[3]).id,
-      link: tweetInfo.uri,
-      favorite_count: tweetInfo.favorite_count,
-      reply_count: tweetInfo.reply_count,
-      retweet_count: tweetInfo.retweet_count,
-      category: category
-    )
-    @newTweet.save!
+    case params[:commit]
+    when "Approve Job"
+      createTweet(tweetInfo, author, params[:category], true)
+    when "Approve Thread Job"
+      threadInfo = client.status(tweetInfo.in_reply_to_status_id)
+      author = client.user(threadInfo.uri.to_s.split('/')[3])
+      createTweet(threadInfo, author, params[:category], true)
+    else
+      createTweet(tweetInfo, author, params[:category], false)
+    end
   end
 
   private

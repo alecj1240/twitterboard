@@ -1,28 +1,32 @@
 <div class="container-center">
-    <h1 class="text-center">Your Potential Jobs</h1>
-    
     <%= form_with(:url => url_for(), method: "get", class: "form-inline") do %>
-        <%= select_tag "category", options_for_select(["Programming", "Design", "Copywriting", "DevOps & SysAdmin", "Business, Management, Finance", "Product", "Customer Support", "Sales & Marketing"]), onchange: "this.form.submit();", :include_blank => "Filter by Category", class: "form-control"%>
-    <% end %>
+        <%= select_tag "category", options_for_select(["Programming", "Design", "Copywriting", "DevOps & SysAdmin", "Business, Management, Finance", "Product", "Customer Support", "Sales & Marketing"]), onchange: "this.form.submit();", :include_blank => "Filter by Category", class: "form-control right-margin"%>
+    
+        <% if user_signed_in? %>
+            <%= link_to "Filter by Followers", url_for(:filter => 'followers'), class: "btn btn-primary right-margin" %>
+            <%= link_to "Filter by Following", url_for(:filter => 'following'), class: "btn btn-primary right-margin" %>
 
-    <% if user_signed_in? %>
-        <%= link_to "Filter by Followers", url_for(:filter => 'followers'), class: "btn btn-primary" %>
-        <%= link_to "Filter by Following", url_for(:filter => 'following'), class: "btn btn-primary" %>
-
-        <% if !@filter.nil? %>
-            <%= link_to "Remove Filters", url_for(), class: "btn btn-danger" %>
+            <% if !@filter.nil? %>
+                <%= link_to "Remove Filters", url_for(), class: "btn btn-danger" %>
+            <% end %>
         <% end %>
     <% end %>
 
-    <% @jobs.in_groups_of(4, false).each do |group| %>
-        <div class='row'>
-            <% group.each do |job| %>
-                <div class='col-md-3'>
-                    <blockquote class="twitter-tweet"><a href=<%= job.link %>></a></blockquote> 
-                </div>
-            <% end %>
+    <div class="container">
+        <div class="row">
+            <div class='col'>
+                <% @jobs.each do |job| %>
+                    <div class="card" style="width: 35rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= job.author_name %></h5>
+                        <h6 class="card-subtitle mb-2 text-muted">posted on: <%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
+                        <p class="card-text"><%= job.text %></p>
+                        
+                        <%= link_to "View on Twitter", job.link, class: "card-link" %>
+                    </div>
+                    </div>
+                <% end %>
+            </div>
         </div>
-    <% end %>
+    </div>
 </div>
-
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

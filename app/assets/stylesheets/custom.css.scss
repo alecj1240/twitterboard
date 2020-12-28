@@ -3,11 +3,20 @@
 }
 
 .container-center {
-    margin: auto;
-    width: 95%;
-    text-align: center;
+    margin: 0 auto !important;
+    width: 95% !important;
 }
 
 .right {
     float: right;
+}
+
+.right-margin {
+    margin-right: 10px;
+}
+
+
+.col-centered{
+    float: none!important;
+    margin: 0 auto;
 }
