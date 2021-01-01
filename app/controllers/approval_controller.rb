@@ -5,31 +5,33 @@ class ApprovalController < ApplicationController
   before_action :authorize_admin
 
   def index
-    client = User.twitter_client(current_user)
-    @mentions = client.mentions_timeline
+    mentions = getMentions()
     @jobs = []
-    @mentions.each do |job|
-      if job.in_reply_to_status_id.nil? && !Tweet.find_by(tweet_id: job.id)
+    mentions["data"].each do |job|
+      in_reply_to_id = nil
+      in_reply_to_id = job["referenced_tweets"][0]["id"] if !job["referenced_tweets"].nil?
+
+      if in_reply_to_id.nil? && !Tweet.find_by(tweet_id: job["id"])
         @jobs.push(job)
         next
       end
-      if !Tweet.find_by(tweet_id: job.id) && !Tweet.find_by(tweet_id: job.in_reply_to_status_id)
+      if !Tweet.find_by(tweet_id: job["id"]) && !Tweet.find_by(tweet_id: in_reply_to_id)
         @jobs.push(job)
       end
     end
   end
 
   def handle
-    client = User.twitter_client(current_user)
-    tweetInfo = client.status(params[:tweetId])
-    author = client.user(tweetInfo.uri.to_s.split('/')[3])
+    #client = User.twitter_client(current_user)
+    tweetInfo = getTweet(params[:tweetId])
+    author = getUser(tweetInfo["data"]["author_id"])
 
     case params[:commit]
     when "Approve Job"
       createTweet(tweetInfo, author, params[:category], true)
     when "Approve Thread Job"
-      threadInfo = client.status(tweetInfo.in_reply_to_status_id)
-      author = client.user(threadInfo.uri.to_s.split('/')[3])
+      threadInfo = getTweet(tweetInfo["data"]["referenced_tweets"][0]["id"])
+      author = getUser(threadInfo["data"]["author_id"])
       createTweet(threadInfo, author, params[:category], true)
     else
       createTweet(tweetInfo, author, params[:category], false)

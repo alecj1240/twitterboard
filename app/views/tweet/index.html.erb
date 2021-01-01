@@ -12,21 +12,22 @@
         <% end %>
     <% end %>
 
-    <div class="container">
-        <div class="row">
-            <div class='col'>
-                <% @jobs.each do |job| %>
-                    <div class="card" style="width: 35rem;">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= job.author_name %></h5>
-                        <h6 class="card-subtitle mb-2 text-muted">posted on: <%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
-                        <p class="card-text"><%= job.text %></p>
-                        
-                        <%= link_to "View on Twitter", job.link, class: "card-link" %>
+    <% @jobs.each do |job| %>
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+                <h5 class="card-title"><%= job.author_name %></h5>
+                <h6 class="card-subtitle mb-2 text-muted">posted on: <%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
+                <p class="card-text"><%= job.text %></p>
+                <%= link_to "View on Twitter", job.link, class: "card-link" %>
+                <%= link_to 'View Full Tweet', open_tweet_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'card-link'}  %>
+                <div id="modal-window-<%= job.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <%= render 'tweet', job: job %>
+                        </div>
                     </div>
-                    </div>
-                <% end %>
+                </div>
             </div>
         </div>
-    </div>
+    <% end %>
 </div>
