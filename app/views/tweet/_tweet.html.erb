@@ -13,5 +13,6 @@
     <% end %>
 </div>
 <div class="modal-footer">
+    <%= link_to "DM @#{job.author_name}", "https://twitter.com/messages/#{job.author_id}-#{current_user.uid}", class: "btn btn-info" %>
     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 </div>

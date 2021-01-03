@@ -1,8 +1,10 @@
-<div class="container-center">
-    <h1>Twitter Job Board</h1>
-    <p>Helping you find a job through your twitter network</p>
-
-    <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-block btn-social btn-twitter" do %>
-       <span class="fa fa-twitter"></span> Sign in with Twitter
-    <% end %>
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Twitterboard!</h1>
+    <p class="lead">We created a job board from just tweets. Find all kinds of jobs in tech from the site you use to procrastinate!</p>
+    <hr class="my-4">
+    <p class="lead">
+        <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-primary btn-lg" do %>
+            Sign In With Twitter
+        <% end %>
+    </p>
 </div>

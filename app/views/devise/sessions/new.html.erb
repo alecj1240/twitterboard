@@ -1,26 +1,11 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container-center text-center"> 
+  <div class="header">
+    <h1 class="title">First, sign in with Twitter.</h1>
+    <%= link_to "Sign in with Twitter", user_twitter_omniauth_authorize_path, class: "btn btn-primary btn-lg" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+  <p>1. Want to view the job postings we have? You've got to sign in first. <br /><br />
+    2. Twitterboard does not read or post anything on your behalf, ever.<br /><br />
+    3. We will have your email, but we hate email, so you won't get any from us.</p>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
