@@ -3,7 +3,8 @@
 }
 
 .container-center {
-    margin: 0 auto !important;
+    margin: 0 auto;
+    margin-top: 10px;
     width: 95% !important;
 }
 
@@ -32,4 +33,16 @@
 
 .header {
     margin: 3rem;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block !important;
+    float: right;
+}
+
+.right {
+    float: right;
 }

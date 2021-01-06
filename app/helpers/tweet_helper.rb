@@ -23,7 +23,7 @@ module TweetHelper
         followerIds = []
         if !response["data"].nil?
             response["data"].each do |user|
-                followersIds.push(user["id"])
+                followerIds.push(user["id"])
             end
         end
 

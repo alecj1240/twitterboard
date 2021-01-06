@@ -10,7 +10,7 @@
        <%= link_to "Job Board", jobs_path, class: "nav-link"%>
       </li>
       <% if user_signed_in? %>
-        <% if current_user.email === "alec@christopherbot.co" %>
+        <% if current_user.uid === "1295064321429446656" %>
           <li class="nav-item active">
           <%= link_to "Approval", approval_path, class: "nav-link"%>
           </li>

@@ -9,6 +9,7 @@ module ApprovalHelper
             tweet_id: tweetInfo["data"]["id"],
             author_id: author["data"]["id"],
             author_name: author["data"]["name"],
+            author_username: getUser(author["data"]["id"])["data"]["username"],
             author_profile_picture: author["data"]["profile_image_url"],
             link:  "https://twitter.com/#{tweetInfo["data"]["author_id"]}/status/#{tweetInfo["data"]["id"]}",
             favorite_count: tweetInfo["data"]["public_metrics"]["like_count"],

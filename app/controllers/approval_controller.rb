@@ -22,7 +22,6 @@ class ApprovalController < ApplicationController
   end
 
   def handle
-    #client = User.twitter_client(current_user)
     tweetInfo = getTweet(params[:tweetId])
     author = getUser(tweetInfo["data"]["author_id"])
 
@@ -41,7 +40,7 @@ class ApprovalController < ApplicationController
   private
 
   def authorize_admin
-    if current_user.email === "alec@christopherbot.co"
+    if current_user.uid === "1295064321429446656"
       return
     end
     redirect_to jobs_path, alert: "How did you know that was there? You can't go in there!"

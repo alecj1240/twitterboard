@@ -37,5 +37,26 @@ class TweetController < ApplicationController
       format.js
     end
   end
-  
+
+  def badge_styling(category)
+    case category
+    when "Programming"
+      "primary"
+    when "Design"
+      "secondary"
+    when "Copywriting"
+      "success"
+    when "DevOps & SysAdmin"
+      "danger"
+    when "Business, Management, Finance"
+      "warning"
+    when "Product"
+      "info"
+    when "Customer Support"
+      "light"
+    else
+      "dark"
+    end
+  end
+  helper_method :badge_styling
 end
