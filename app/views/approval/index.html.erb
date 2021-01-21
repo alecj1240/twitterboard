@@ -1,15 +1,18 @@
-<h1>Approve/Disapprove Tweets</h1>
+<div>
+    <h1>Approve/Disapprove Tweets</h1>
 
-<% @jobs.each do |job| %>
-    <blockquote class="twitter-tweet"><a href=<%= "https://twitter.com/#{job["author_id"]}/status/#{job["id"]}" %>></a></blockquote> 
-    <%= form_with(url: approval_handle_path, method: "post") do %>
-        <%= hidden_field_tag :tweetId, job["id"] %>
-        <%= select_tag "category", options_for_select([ "Programming", "Design", "Copywriting", "DevOps & SysAdmin", "Business, Management, Finance", "Product", "Customer Support", "Sales & Marketing"], "Programming") %>
-        <%= submit_tag("Approve Job", class: "btn btn-primary") %>
-        <%= submit_tag("Deny Job", class: "btn btn-danger") %>
-        <%= submit_tag("Approve Thread Job", class: "btn btn-primary") %>
+    <% @jobs.each do |job| %>
+        <blockquote class="twitter-tweet"><a href=<%= "https://twitter.com/#{job["author_id"]}/status/#{job["id"]}" %>></a></blockquote> 
+            <%= form_with(url: approval_handle_path, method: "post") do %>
+
+            <%= hidden_field_tag :tweetId, job["id"] %>
+            <%= select_tag "category", options_for_select([ "Programming", "Design", "Copywriting", "DevOps & SysAdmin", "Business, Management, Finance", "Product", "Customer Support", "Sales & Marketing"], "Programming") %>
+            <%= submit_tag("Approve Job", class: "btn btn-primary") %>
+            <%= submit_tag("Deny Job", class: "btn btn-danger") %>
+            <%= submit_tag("Approve Thread Job", class: "btn btn-primary") %>
+
+        <% end %>
     <% end %>
+</div>
 
-<% end %>
-
-<%= javascript_pack_tag 'widget' %>
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
