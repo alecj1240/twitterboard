@@ -5,7 +5,7 @@ module ApprovalHelper
     def createTweet(tweetInfo, author, category, approvedStatus)
         @newTweet = Tweet.new(
             approved: approvedStatus,
-            text: tweetInfo["data"]["text"],
+            text: addUrlToText(tweetInfo["data"]["text"], tweetInfo),
             tweet_id: tweetInfo["data"]["id"],
             author_id: author["data"]["id"],
             author_name: author["data"]["name"],
@@ -17,7 +17,8 @@ module ApprovalHelper
             retweet_count: tweetInfo["data"]["public_metrics"]["retweet_count"],
             category: category,
             tweet_date: tweetInfo["data"]["created_at"],
-            tweet_media: tweetMedia(tweetInfo)
+            tweet_media: tweetMedia(tweetInfo),
+            url_data: tweetInfo["data"]["entities"]["urls"]
         )
         @newTweet.save!
     end
@@ -105,5 +106,14 @@ module ApprovalHelper
         response = request.run
     
         return JSON.parse(response.body)
+    end
+
+    def addUrlToText(text, tweetData)
+        if !tweetData["data"]["entities"]["urls"].nil?
+            tweetData["data"]["entities"]["urls"].each do |url|
+                text.gsub!(url["url"],url["display_url"])
+            end
+        end
+        return text
     end
 end

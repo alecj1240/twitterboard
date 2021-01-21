@@ -8,11 +8,15 @@
         <% photoInfo = m.split(/&/) %>
         <% if photoInfo[0] == "type=photo" %>
             <% photoInfo[1].slice!("url=")  %>
-            <%= photoInfo[1] %>
+            <%= image_tag(photoInfo[1], style: 'height:auto;width:400px;') %>
+        <% end %>
+        <% if photoInfo[0] == "type=video" %>
+            <% photoInfo[1].slice!("url=")  %>
+            <%= video_tag(photoInfo[1]) %>
         <% end %>
     <% end %>
 </div>
 <div class="modal-footer">
-    <%= link_to "DM @#{job.author_name}", "https://twitter.com/messages/#{job.author_id}-#{current_user.uid}", class: "btn btn-info" %>
+    <%= link_to "DM @#{job.author_username}", "https://twitter.com/messages/#{job.author_id}-#{current_user.uid}", class: "btn btn-info", target: :_blank %>
     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 </div>

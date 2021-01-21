@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_05_225218) do
+ActiveRecord::Schema.define(version: 2020_12_25_082345) do
 
   create_table "tweets", force: :cascade do |t|
     t.text "text"
@@ -25,10 +25,11 @@ ActiveRecord::Schema.define(version: 2021_01_05_225218) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "category"
     t.string "author_name"
+    t.string "author_username"
     t.string "author_profile_picture"
     t.datetime "tweet_date"
     t.string "tweet_media"
-    t.string "author_username"
+    t.json "url_data", default: {}
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,8 +46,8 @@ ActiveRecord::Schema.define(version: 2021_01_05_225218) do
     t.string "token"
     t.string "secret"
     t.string "profile_image"
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
 end
