@@ -1,10 +1,16 @@
 <div class="jumbotron">
     <h1 class="display-4">Welcome to Twitterboard!</h1>
-    <p class="lead">We created a job board from just tweets. Find all kinds of jobs in tech from the site you use to procrastinate!</p>
+    <p class="lead">We created a job board from just tweets.</p>
     <hr class="my-4">
     <p class="lead">
-        <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-primary btn-lg" do %>
-            Sign In With Twitter
+        <% if user_signed_in? %>
+            <%= link_to jobs_path, class: "btn btn-primary btn-lg" do %>
+                Go To Job Board
+            <% end %>
+        <% else %>
+            <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-primary btn-lg" do %>
+                Sign In With Twitter
+            <% end %>
         <% end %>
     </p>
 </div>

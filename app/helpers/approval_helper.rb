@@ -18,7 +18,7 @@ module ApprovalHelper
             category: category,
             tweet_date: tweetInfo["data"]["created_at"],
             tweet_media: tweetMedia(tweetInfo),
-            url_data: tweetInfo["data"]["entities"]["urls"]
+            url_data: addUrls(tweetInfo)
         )
         @newTweet.save!
     end
@@ -109,11 +109,19 @@ module ApprovalHelper
     end
 
     def addUrlToText(text, tweetData)
-        if !tweetData["data"]["entities"]["urls"].nil?
+        if !tweetData["data"]["entities"].nil? && !tweetData["data"]["entities"]["urls"].nil?
             tweetData["data"]["entities"]["urls"].each do |url|
                 text.gsub!(url["url"],url["display_url"])
             end
         end
         return text
+    end
+
+    def addUrls(tweetData)
+        if !tweetData["data"]["entities"].nil? && !tweetData["data"]["entities"]["urls"].nil?
+            return tweetData["data"]["entities"]["urls"]
+        else
+            return 
+        end
     end
 end

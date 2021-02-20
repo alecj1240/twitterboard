@@ -14,27 +14,32 @@
         <% end %>
     <% end %>
 </div>
+
 <div class="container-center">
-
-
     <% @jobs.each do |job| %>
-        <div class="card" style="width: 53rem">
-            <div class="card-body">
-                <%= image_tag(job.author_profile_picture, class: 'avatar right') %>
-                <h5 class="card-title"><%= job.author_name %> (<%= link_to "@#{job.author_username}", "https://twitter.com/#{job.author_username}" %>)</h5>
-                <h6 class="card-subtitle mb-2 text-muted"><%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
-                <p class="card-text"><%= job.text %></p>
-                <%= link_to 'View Full Tweet', open_tweet_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'card-link'}  %>
-                <%= link_to "View on Twitter", job.link, class: "card-link", target: :_blank %>
-                <span class="badge badge-<%= badge_styling(job.category) %> right"><%= job.category %></span>
-                <div id="modal-window-<%= job.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <%= render 'tweet', job: job %>
+        <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
+            <div class="card">
+                <div class="card-body">
+                    <%= image_tag(job.author_profile_picture, class: 'avatar right') %>
+        <% end %>
+                    <h5 class="card-title"><%= job.author_name %> (<%= link_to "@#{job.author_username}", "https://twitter.com/#{job.author_username}" %>)</h5>
+        <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
+                    <p class="card-text"><%= job.text %></p>
+                    <%= link_to 'View Full Tweet', open_tweet_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'card-link'}  %>
+        <% end %>
+                    <% link_to "View on Twitter", job.link, class: "card-link", target: :_blank %>
+        <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
+                    <span class="badge badge-<%= badge_styling(job.category) %> right"><%= job.category %></span>
+                    <div id="modal-window-<%= job.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <%= render 'tweet', job: job %>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        <% end %>
     <% end %>
 </div>
