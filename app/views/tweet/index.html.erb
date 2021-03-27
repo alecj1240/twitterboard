@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid container-center text-center">
+<div class="jumbotron jumbotron-fluid text-center">
     <h1 class="display-4"> Tweets for Jobs </h1>
     <p class="lead">Tweets for Jobs is the first job board entirely built on Twitter. <br> 
                     Find jobs and side work you won't find on any other job board.</p>
@@ -26,11 +26,7 @@
         <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
                     <h6 class="card-subtitle mb-2 text-muted"><%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
                     <p class="card-text"><%= job.text %></p>
-                    <%= link_to 'View Full Tweet', open_tweet_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'card-link'}  %>
-        <% end %>
-                    <% link_to "View on Twitter", job.link, class: "card-link", target: :_blank %>
-        <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
-                    <span class="badge badge-<%= badge_styling(job.category) %> right"><%= job.category %></span>
+                    <span class="badge badge-<%= badge_styling(job.category)%>"><%= job.category %></span>
                     <div id="modal-window-<%= job.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
