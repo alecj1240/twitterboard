@@ -7,7 +7,7 @@ class TweetController < ApplicationController
     @filter = params[:filter]
     @category = params[:category]
 
-    @jobs = Tweet.where(:approved => true).order('tweet_date' + ' DESC')
+    @jobs = Tweet.where(:approved => true).order('tweet_date DESC')
 
     if @filter == "followers"
       @followerIds = getFollowerIds(current_user.uid)
