@@ -40,7 +40,7 @@ class ApprovalController < ApplicationController
   private
 
   def authorize_admin
-    if current_user.uid === "1295064321429446656"
+    if current_user.uid === ENV["ADMIN_ID"]
       return
     end
     redirect_to jobs_path, alert: "How did you know that was there? You can't go in there!"

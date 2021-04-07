@@ -1,7 +1,12 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container-center">
+    <h2 class="text-center"> Edit My Account</h2>
 
-<h3>Cancel my account</h3>
+    <div class="content">
+        <h4>We don't have any information about you to edit!</h4>
+        <p>If you'd like, you can delete your account and we'll delete the limited information we have about you.</p>
 
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+        <p><%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, class: "btn btn-secondary", method: :delete %></p>
 
-<%= link_to "Back", :back %>
+        <%= link_to "back to the jobs", :back %>
+    </div>
+</div>
