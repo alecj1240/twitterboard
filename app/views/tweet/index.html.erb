@@ -20,7 +20,6 @@
         <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
             <div class="card">
                 <div class="card-body">
-                    <%= image_tag(job.author_profile_picture, class: 'avatar right') %>
         <% end %>
                     <h5 class="card-title"><%= job.author_name %> (<%= link_to "@#{job.author_username}", "https://twitter.com/#{job.author_username}" %>)</h5>
         <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
