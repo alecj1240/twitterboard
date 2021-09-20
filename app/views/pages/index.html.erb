@@ -1,12 +1,13 @@
 <div class="container-page">
     <div class="jumbotron">
-        <h1 class="display-5">Welcome to Twitterboard!</h1>
-        <p class="lead">We created <%= link_to jobs_path do %><u>a job board</u><% end %> from just tweets.</p>
-        <hr class="my-4">
+        <h1 class="display-5">Tweets for Jobs</h1>
+        <p class="lead">We curate <%= link_to jobs_path do %><u>a collection of tweets</u><% end %> for jobs in tech</p>
+        <p class="lead">There's a lot of jobs out there, but it's hard to find them. <br>
+        Thankfully, most people tweet out their latest job postings.</p>
         <p class="lead">
             <% if user_signed_in? %>
                 <%= link_to jobs_path, class: "btn btn-primary btn-lg" do %>
-                    Go To Job Board
+                    View Jobs
                 <% end %>
             <% else %>
                 <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-primary btn-lg" do %>
@@ -14,5 +15,29 @@
                 <% end %>
             <% end %>
         </p>
+        <hr class="my-4">
+        <h4>Who posts their jobs on twitter? Everybody.</h4>
+        <ul class="checklist-ul">
+            <li>Large companies</li>
+            <li>Startup founders</li>
+            <li>Business Owners</li>
+            <li>Investors</li>
+            <li>Managers & Team Leads</li>
+        </ul>
+        <hr class="my-4">
+        <h4>How Are These Jobs Sorted?</h4>
+        <p>We classify every job posting that goes on the site by the job type (ie. programming, marketing, etc.). </p>
+        <p>But more importantly....</p>
+        <p>You can <u>filter the tweets <b>by people you follow</b> or by <b>your followers</b></u> <br>
+            so you can find a job straight from your connections (followers) or people you like (following)</p>
+        <hr class="my-4">
+        <h4>How are jobs sourced?</h4>
+        <p>Mention @TweetsForJobs in the job posting or reply to the tweet and mention @TweetsForJobs <br>
+        I approve jobs that look like a good fit for the site</p>
+        <hr class="my-4">
+        <h4>Who made this cool site?</h4>
+        <p> I did! I'm Alec Jones, a 19-year-old developer from Vancouver! (also looking for a summer 2022 internship *wink*)</p>
     </div>
 </div>
+
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
