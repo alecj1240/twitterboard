@@ -1,7 +1,9 @@
 <div class="container-center">
     <h1 class="center"> My Tweets </h1>
+    <p>Here you'll find any tweets of yours that are currently posted on our site</p>
     <% if @jobs.empty? %>
-        <p> Sorry, none of your tweets are currently posted on our site. </p>
+        <br><br>
+        <p><b> Sorry, none of your tweets are currently posted on our site. </b></p>
     <% else %>
         <% @jobs.each do |job| %>
             <div class="card" style="width: 52rem;">
