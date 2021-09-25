@@ -17,22 +17,8 @@
 
 <div class="container-center">
     <% @jobs.each do |job| %>
-        <%= link_to open_tweet_path, {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window-'+job.id.to_s(), class: 'custom-card'} do %>
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title"><%= job.author_name %> (@<%= job.author_username%>)</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><%= job.tweet_date.strftime("%B %e, %Y") %> </h6>
-                    <p class="card-text"><%= job.text %></p>
-                    <span class="badge badge-<%= badge_styling(job.category)%>"><%= job.category %></span>
-                    <div id="modal-window-<%= job.id %>" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <%= render 'tweet', job: job %>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <% end %>
+         <blockquote data-conversation="none" class="twitter-tweet tw-align-center"><a href=<%= "https://twitter.com/#{job.author_id}/status/#{job.tweet_id}" %>></a></blockquote> 
     <% end %>
 </div>
+
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
