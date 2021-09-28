@@ -17,8 +17,9 @@
 
 <div class="container-center">
     <% @jobs.each do |job| %>
-         <blockquote data-conversation="none" class="twitter-tweet tw-align-center"><a href=<%= "https://twitter.com/#{job.author_id}/status/#{job.tweet_id}" %>></a></blockquote> 
+        <blockquote data-conversation="none" class="twitter-tweet tw-align-center"><a href=<%= "https://twitter.com/#{job.author_id}/status/#{job.tweet_id}" %>></a></blockquote> 
+        <hr>
     <% end %>
 </div>
 
-<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<%= javascript_include_tag('tweet-format.js') %>
